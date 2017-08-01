@@ -4,7 +4,7 @@
       <li class="layui-nav-item"><a href="/">工具箱</a></li>
       <li class="layui-nav-item right">
         <a href="javascript:">个人中心</a>
-        <dl class="layui-nav-child"> <!-- 二级菜单 -->
+        <dl class="layui-nav-child">
           <dd><a href="javascript:" @click="userInfo()">个人信息</a></dd>
           <dd><a href="javascript:">系统通知</a></dd>
           <dd><a href="javascript:">退出登陆</a></dd>
