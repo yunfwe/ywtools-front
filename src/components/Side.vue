@@ -24,16 +24,14 @@ export default {
           items: [
             {name:'仪表盘', to:'/home/monitor'},
             {name:'PXE装机', to:'/home/pxe'},
-            {name:'第三个', to:''},
-            {name:'集合', items:[
-              {name:'集合1', to:'/'},
-              {name:'集合2', to:'/'},
-              {name:'集合3', to:'/'},
+            {name:'Yum源', to:''},
+            {name:'自动化运维', items:[
+              {name:'Ansible', to:'/'},
+              {name:'webTerminal', to:'/'},
             ]},
-            {name:'集合', items:[
-              {name:'集合1', to:'/'},
-              {name:'集合2', to:'/'},
-              {name:'集合3', to:'/'},
+            {name:'其他工具', items:[
+              {name:'局域网主机扫描', to:'/'},
+              {name:'nmap端口扫描', to:'/'},
             ]}
           ]
       }
