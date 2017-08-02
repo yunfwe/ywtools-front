@@ -1,8 +1,8 @@
 <template>
-  <div id="vhome">
+  <div id="vhome" class="">
     <vheader></vheader>
     <vside></vside>
-    <div id="content">
+    <div id="content" class="layui-body layui-tab-content">
       <router-view></router-view>
     </div>
   </div>
@@ -21,9 +21,8 @@ export default {
 </script>
 
 <style>
-#content{
-  position: absolute;
-  top: 70px;
+#content {
+  top: 60px;
   left: 220px;
 }
 </style>

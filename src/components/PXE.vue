@@ -154,7 +154,7 @@
 </script>
 <style scoped>
   #vpxe{
-    margin:auto;
+    width: 600px;
   }
   h1 {
     font-size: 24px;

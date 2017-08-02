@@ -59,12 +59,14 @@ export default {
 </script>
 <style scoped="">
   ul{
-    padding:0px;
+    padding:0;
   }
 
   .right {
     float: right;
     margin-right: 10px;
+    z-index: 1000;
   }
+
 
 </style>
