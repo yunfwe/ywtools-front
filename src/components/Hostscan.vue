@@ -108,7 +108,7 @@
           };
           ws.onclose = ()=>{
             this.showLoad = false;
-            layui.layer.msg('扫描成功',{time:1000})
+//            layui.layer.msg('扫描成功',{time:1000})
           }
         } catch(e) {
           this.showLoad = false;
