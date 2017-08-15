@@ -1,14 +1,15 @@
 <template>
-  <div id="vtest">
+  <div id="vservercontorl">
     <h1>Hello test</h1>
   </div>
 </template>
 
 <script>
   export default {
-    name: 'vtest'
+    name:'vservercontorl'
   }
 </script>
-<style scoped>
 
+<style scoped>
+  
 </style>

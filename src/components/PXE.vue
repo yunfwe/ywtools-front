@@ -100,48 +100,48 @@
       },
       startServe: async function (serveName) {
         let id = layui.layer.load(2);
-        try{
-          let rst = await axios.get(urls.PXE_START_SERVE+serveName)
+        try {
+          let rst = await axios.get(urls.PXE_START_SERVE + serveName)
           layui.layer.close(id)
-          if(rst.data.result){
+          if (rst.data.result) {
             layui.layer.msg('启动成功', {time: 1000})
             this.getStatusQuiet()
           } else {
             layui.layer.msg('启动失败', {time: 1000})
           }
-        } catch(e){
+        } catch (e) {
           layui.layer.close(id)
           layui.layer.msg('命令请求失败', {time: 1500})
         }
       },
       stopServe: async function (serveName) {
         let id = layui.layer.load(2);
-        try{
-          let rst = await axios.get(urls.PXE_STOP_SERVE+serveName)
+        try {
+          let rst = await axios.get(urls.PXE_STOP_SERVE + serveName)
           layui.layer.close(id)
-          if(rst.data.result){
+          if (rst.data.result) {
             layui.layer.msg('停止成功', {time: 1000})
             this.getStatusQuiet()
           } else {
             layui.layer.msg('停止失败', {time: 1000})
           }
-        } catch(e){
+        } catch (e) {
           layui.layer.close(id)
           layui.layer.msg('命令请求失败', {time: 1500})
         }
       },
       restartServe: async function (serveName) {
         let id = layui.layer.load(2);
-        try{
-          let rst = await axios.get(urls.PXE_RESTART_SERVE+serveName);
+        try {
+          let rst = await axios.get(urls.PXE_RESTART_SERVE + serveName);
           layui.layer.close(id);
-          if(rst.data.result){
+          if (rst.data.result) {
             layui.layer.msg('重启成功', {time: 1000});
             this.getStatusQuiet()
           } else {
             layui.layer.msg('重启失败', {time: 1000})
           }
-        } catch(e){
+        } catch (e) {
           layui.layer.close(id);
           layui.layer.msg('命令请求失败', {time: 1500})
         }
@@ -153,9 +153,10 @@
   }
 </script>
 <style scoped>
-  #vpxe{
+  #vpxe {
     width: 600px;
   }
+
   h1 {
     font-size: 24px;
     display: inline-block;
