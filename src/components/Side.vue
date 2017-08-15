@@ -25,6 +25,8 @@ export default {
             {name:'仪表盘', to:'/home/monitor'},
             {name:'PXE装机', to:'/home/pxe'},
             {name:'Yum源', to:''},
+            {name:'资源共享', to:''},
+            {name:'服务控制台', to:''},
             {name:'自动化运维', items:[
               {name:'Ansible', to:'/'},
               {name:'webTerminal', to:'/'},

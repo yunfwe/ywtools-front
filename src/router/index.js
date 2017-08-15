@@ -10,7 +10,7 @@ Vue.use(Router);
 
 export default new Router({
   routes: [
-    { path: '/', redirect:'/home/monitor' },
+    { path: '/', redirect:'/home/' },
     { path: '/home', name: 'Hello', component: Home, children:[
       { path: '', component: Home_index },
       { path: 'monitor', component: Monitor },

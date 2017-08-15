@@ -1,7 +1,7 @@
 <template>
   <div id="vheader">
     <ul class="layui-nav">
-      <li class="layui-nav-item"><a href="/">工具箱</a></li>
+      <li class="layui-nav-item"><a href="/">运维管理平台</a></li>
       <li class="layui-nav-item right">
         <a href="javascript:">个人中心</a>
         <dl class="layui-nav-child">

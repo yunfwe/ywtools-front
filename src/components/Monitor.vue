@@ -10,20 +10,25 @@ import axios from 'axios'
 import echarts from 'echarts'
 export default {
   name:'vmonitor',
+  data:()=>{
+    return {
+        myChart:null,
+    }
+  },
   methods:{
     drawMemGraph: async function(){
       let meminfo = await axios.get(urls.MONITOR_MEMINFO);
-      let myChart = echarts.init(document.getElementById('meminfo'));
+//      let myChart = echarts.init(document.getElementById('meminfo'));
 //      let MemTotal = (meminfo.data.MemTotal/1024/1024).toFixed(0)
       let _MemUsed = meminfo.data.MemTotal - meminfo.data.MemFree
       let MemUsed = (_MemUsed/1024/1024).toFixed(0)
       let MemFree = (meminfo.data.MemFree/1024/1024).toFixed(0)
       let Cached = (meminfo.data.Cached/1024/1024).toFixed(0)
       let Buffers = (meminfo.data.Buffers/1024/1024).toFixed(0)
-      myChart.setOption({
+      this.myChart.setOption({
         title : {
           text: '内存使用',
-          subtext: 'Linux-192.168.8.243',
+          subtext: 'Linux-192.168.8.253',
           x:'center'
         },
         tooltip : {
@@ -64,6 +69,7 @@ export default {
     dict.bcindex = layui.layer.load(3)
   },
   mounted() {
+    this.myChart = document.getElementById('meminfo');
     this.drawMemGraph();
     layui.layer.close(dict.bcindex);
     setInterval(this.drawMemGraph,10000);
