@@ -34,6 +34,7 @@ export default {
             {name:'其他工具', items:[
               {name:'局域网主机扫描', to:'/home/hostscan'},
               {name:'nmap端口扫描', to:'/'},
+              {name:'RPM在线构建', to:'/'},
             ]}
           ]
       }
