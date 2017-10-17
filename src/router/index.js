@@ -7,6 +7,7 @@ import Pxe from '../components/PXE.vue'
 import Hostscan from '../components/Hostscan.vue'
 import ServerControl from '../components/ServerControl.vue'
 import AssetsShare from '../components/AssetsShare.vue'
+import IDRAC from '../components/IDRAC.vue'
 
 Vue.use(Router);
 
@@ -20,6 +21,7 @@ export default new Router({
       { path: 'hostscan', component: Hostscan },
       { path: 'share', component: AssetsShare },
       { path: 'control', component: ServerControl },
+      { path:'idrac', component: IDRAC }
     ]}
   ]
 })

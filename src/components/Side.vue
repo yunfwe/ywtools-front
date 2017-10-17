@@ -27,6 +27,7 @@ export default {
             {name:'Yum源', to:''},
             {name:'资源共享', to:'share'},
             {name:'服务控制台', to:'control'},
+            {name:'IDRAC管理', to:'idrac'},
             {name:'自动化运维', items:[
               {name:'Ansible', to:'/'},
               {name:'webTerminal', to:'/'},
@@ -35,6 +36,8 @@ export default {
               {name:'局域网主机扫描', to:'/home/hostscan'},
               {name:'nmap端口扫描', to:'/'},
               {name:'RPM在线构建', to:'/'},
+              {name:'网络质量探测pycurl', to:'/'},
+              {name:'源码包搜索下载', to:'/'},
             ]}
           ]
       }
