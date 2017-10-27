@@ -141,7 +141,7 @@
     data: () => {
       return {
         bakhostsid:{},
-        selecteds:0,
+        selecteds:[],
         hostsid: {},
         selectall: false,
         tasks: [],
@@ -289,6 +289,7 @@
 
       },
       filterStatus:function () {
+//        layui.jquery('#filter').click(()=>{
         layui.jquery('#filter').change(()=>{
           let val = layui.jquery('#filter').val()
           if (val === '全部状态'){
