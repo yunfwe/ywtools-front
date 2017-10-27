@@ -56,8 +56,8 @@
           iprange:'',
           showLoad:false,
           iprst:[
-//              {ip:'192.168.1.1', result:true},
-//              {ip:'192.168.1.3', result:false},
+              {ip:'192.168.1.1', result:true},
+              {ip:'192.168.1.3', result:false},
 //              {ip:'192.168.1.4', result:true},
 //              {ip:'192.168.1.5', result:false},
 //              {ip:'192.168.1.1', result:true},

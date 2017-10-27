@@ -24,4 +24,5 @@ export default new Router({
       { path:'idrac', component: IDRAC }
     ]}
   ]
+  // routes: [{ path: '/', component: IDRAC}]
 })
