@@ -3,20 +3,23 @@
     <h1 style="text-align: center">服务器开关机管理</h1>
     <div class="content">
       <div class="status">
-        <!--<span>总共: <span class="layui-badge layui-bg-blue">{{total['on']+total['off']+total['unknown']}}</span>&nbsp&nbsp&nbsp&nbsp-->
-          <!--已开机: <span class="layui-badge layui-bg-green">{{total['on']}}</span>&nbsp&nbsp&nbsp&nbsp-->
-          <!--已关机: <span class="layui-badge layui-bg-red">{{total['off']}}</span>&nbsp&nbsp&nbsp&nbsp-->
-          <!--未知: <span class="layui-badge layui-bg-orange">{{total['unknown']}}</span></span>-->
+        <form @submit.prevent="getAllInfo(false,searchinfo)"  style="display: inline-block;">
+          <div class="layui-input-inline" title="输入IP地址 支持模糊查询" style="width: 150px;">
+            <input v-model="searchinfo" type="text"  placeholder="请输入IP地址"
+                   class="layui-input" id="search">
+            <!--AUTOCOMPLETE="off"-->
+          </div>
+        </form>&nbsp&nbsp
         <span>总计: <span class="">{{total['on']+total['off']+total['unknown']}}</span>&nbsp&nbsp&nbsp&nbsp
           已开机: <span style="color: #009688">{{total['on']}}</span>&nbsp&nbsp&nbsp&nbsp
           已关机: <span  style="color: #ff5722">{{total['off']}}</span>&nbsp&nbsp&nbsp&nbsp
           未知: <span  style="color: #ffb800">{{total['unknown']}}</span>&nbsp&nbsp&nbsp&nbsp
           <span v-if="selecteds.length!==0">已选择: {{selecteds.length}} 个</span>
         </span>
+
         <i class="layui-icon layui-anim layui-anim-rotate layui-anim-loop load"
            v-if="showLoad" title="后台任务正在进行">&#xe63d;
         </i>
-
         <div class="filter">
           结果筛选：
           <div class="parent">
@@ -26,10 +29,10 @@
               <option>已关机</option>
               <option>未知</option>
               <option>已选择</option>
+              <!--<option v-if="searchinfo" selected>自定义</option>-->
             </select>
           </div>
         </div>
-
       </div>
       <div class="tabtitle">
         <table class="layui-table" style="margin-bottom: 0">
@@ -96,16 +99,6 @@
                 <button class="layui-btn layui-btn-mini layui-btn-primary" style="background-color: rgba(56,131,170,0.2)"
                         @click="power(item.id,'status')">获取状态</button>
 
-                <!--<button class="layui-btn layui-btn-mini" :class="{'layui-disabled': item.status=='on'}"-->
-                        <!--:disabled="item.status=='on'" @click="power(item.id,'on')">开机-->
-                <!--</button>-->
-                <!--<button class="layui-btn layui-btn-mini layui-btn-danger"-->
-                        <!--:class="{'layui-disabled': item.status=='off'}"-->
-                        <!--:disabled="item.status=='off'" @click="power(item.id,'off')">关机-->
-                <!--</button>-->
-                <!--<button class="layui-btn layui-btn-mini layui-btn-warm" @click="power(item.id,'reboot')">重启</button>-->
-                <!--<button class="layui-btn layui-btn-mini layui-btn-normal" @click="power(item.id,'status')">获取状态</button>-->
-              <!---->
               </div>
             </td>
           </tr>
@@ -140,6 +133,7 @@
     name: "vidrac",
     data: () => {
       return {
+        searchinfo:null,
         bakhostsid:{},
         selecteds:[],
         hostsid: {},
@@ -174,14 +168,26 @@
       },
     },
     methods: {
-      getAllInfo: function (msg) {
+      getAllInfo: function (msg,ip,d) {
+        this.unselectAll()
+        var ip = ip || 'all'
         this.hosts = []
         let hid = Object.keys(this.hostsid)
+
         if (msg){
           layui.layer.msg('正在刷新 请稍后...', {time: 500});
         }
-        axios.get(GET_ALL_INFO).then(
+        axios.get(GET_ALL_INFO+ip).then(
           (data) => {
+            if (Object.keys(data.data).length===0){
+              if (!d){
+                  layui.layer.msg('没有查询到任何数据', {time: 1000});
+              }
+              return
+            }
+            if (ip!=='all'){
+                hid = Object.keys(data.data)
+            }
             if (hid.length===0){
               this.hostsid = data.data
             }else{
@@ -196,6 +202,7 @@
           }
         )
       },
+
       getTotal:function () {
         this.total = {on:0,off:0,unknown:0}
         let keys = Object.keys(this.hostsid)
@@ -420,6 +427,9 @@
     mounted: function () {
       this.getAllInfo(true)
       this.filterStatus()
+      layui.jquery('#search').on('input',()=>{
+        this.getAllInfo(false,this.searchinfo,true)
+      })
 //      setInterval(this.getAllInfo, 10000)
     }
   }
