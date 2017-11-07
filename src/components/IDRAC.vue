@@ -3,17 +3,18 @@
     <h1 style="text-align: center">服务器开关机管理</h1>
     <div class="content">
       <div class="status">
-        <form @submit.prevent="getAllInfo(false,searchinfo)"  style="display: inline-block;">
+        <form @submit.prevent="getAllInfo(false,searchinfo)" style="display: inline-block;">
           <div class="layui-input-inline" title="输入IP地址 支持模糊查询" style="width: 150px;">
-            <input v-model="searchinfo" type="text"  placeholder="请输入IP地址"
+            <input v-model="searchinfo" type="text" placeholder="请输入IP地址"
                    class="layui-input" id="search">
             <!--AUTOCOMPLETE="off"-->
           </div>
-        </form>&nbsp&nbsp
-        <span>总计: <span class="">{{total['on']+total['off']+total['unknown']}}</span>&nbsp&nbsp&nbsp&nbsp
+        </form>
+        &nbsp&nbsp
+        <span>总计: <span class="">{{total['on'] + total['off'] + total['unknown']}}</span>&nbsp&nbsp&nbsp&nbsp
           已开机: <span style="color: #009688">{{total['on']}}</span>&nbsp&nbsp&nbsp&nbsp
-          已关机: <span  style="color: #ff5722">{{total['off']}}</span>&nbsp&nbsp&nbsp&nbsp
-          未知: <span  style="color: #ffb800">{{total['unknown']}}</span>&nbsp&nbsp&nbsp&nbsp
+          已关机: <span style="color: #ff5722">{{total['off']}}</span>&nbsp&nbsp&nbsp&nbsp
+          未知: <span style="color: #ffb800">{{total['unknown']}}</span>&nbsp&nbsp&nbsp&nbsp
           <span v-if="selecteds.length!==0">已选择: {{selecteds.length}} 个</span>
         </span>
 
@@ -86,18 +87,32 @@
             <td v-else style="color: #ffb800">未知</td>
             <td>
               <div class="layui-btn-group">
+                <!--<button class="layui-btn layui-btn-mini layui-btn-primary"-->
+                <!--style="background-color: rgba(42,210,63,0.2)" :class="{'layui-disabled': item.status=='on'}"-->
+                <!--:disabled="item.status=='on'" @click="power(item.id,'on')">开机-->
+                <!--</button>-->
+                <!--<button class="layui-btn layui-btn-mini layui-btn-primary" style="background-color: rgba(255,87,34,0.2)"-->
+                <!--:class="{'layui-disabled': item.status=='off'}"-->
+                <!--:disabled="item.status=='off'" @click="power(item.id,'off')">关机-->
+                <!--</button>-->
+                <!--<button class="layui-btn layui-btn-mini layui-btn-primary" style="background-color: rgba(255,184,0,0.2)"-->
+                <!--@click="power(item.id,'reboot')">重启</button>-->
+                <!--<button class="layui-btn layui-btn-mini layui-btn-primary" style="background-color: rgba(56,131,170,0.2)"-->
+                <!--@click="power(item.id,'status')">获取状态</button>-->
                 <button class="layui-btn layui-btn-mini layui-btn-primary"
-                        style="background-color: rgba(42,210,63,0.2)" :class="{'layui-disabled': item.status=='on'}"
+                        :class="{'layui-disabled': item.status=='on'}"
                         :disabled="item.status=='on'" @click="power(item.id,'on')">开机
                 </button>
-                <button class="layui-btn layui-btn-mini layui-btn-primary" style="background-color: rgba(255,87,34,0.2)"
+                <button class="layui-btn layui-btn-mini layui-btn-primary"
                         :class="{'layui-disabled': item.status=='off'}"
                         :disabled="item.status=='off'" @click="power(item.id,'off')">关机
                 </button>
-                <button class="layui-btn layui-btn-mini layui-btn-primary" style="background-color: rgba(255,184,0,0.2)"
-                        @click="power(item.id,'reboot')">重启</button>
-                <button class="layui-btn layui-btn-mini layui-btn-primary" style="background-color: rgba(56,131,170,0.2)"
-                        @click="power(item.id,'status')">获取状态</button>
+                <button class="layui-btn layui-btn-mini layui-btn-primary"
+                        @click="power(item.id,'reboot')">重启
+                </button>
+                <button class="layui-btn layui-btn-mini layui-btn-primary"
+                        @click="power(item.id,'status')">获取状态
+                </button>
 
               </div>
             </td>
@@ -108,18 +123,22 @@
       <div class="layui-btn-group btn">
         <button class="layui-btn layui-btn-small layui-btn-primary" @click="getAllInfo(true)">刷新页面</button>
         <button class="layui-btn layui-btn-small layui-btn-primary"
-                style="background-color: rgba(42,210,63,0.2)" @click="powerAll('on')">批量开机</button>
+                style="background-color: rgba(42,210,63,0.2)" @click="powerAll('on')">批量开机
+        </button>
         <button class="layui-btn layui-btn-small layui-btn-primary"
-                style="background-color: rgba(255,87,34,0.2)" @click="powerAll('off')">批量关机</button>
+                style="background-color: rgba(255,87,34,0.2)" @click="powerAll('off')">批量关机
+        </button>
         <button class="layui-btn layui-btn-small layui-btn-primary"
-                style="background-color: rgba(255,184,0,0.2)" @click="powerAll('reboot')">批量重启</button>
+                style="background-color: rgba(255,184,0,0.2)" @click="powerAll('reboot')">批量重启
+        </button>
         <button class="layui-btn layui-btn-small layui-btn-primary"
-                style="background-color: rgba(56,131,170,0.2)" @click="powerAll('status')">批量获取状态</button>
+                style="background-color: rgba(56,131,170,0.2)" @click="powerAll('status')">批量获取状态
+        </button>
         <!--<button class="layui-btn layui-btn-small layui-btn-primary" @click="getAllInfo(true)">全部刷新</button>-->
-        <!--<button class="layui-btn layui-btn-small" @click="powerAll('on')">启动所选</button>-->
-        <!--<button class="layui-btn layui-btn-small layui-btn-danger" @click="powerAll('off')">批量关机</button>-->
-        <!--<button class="layui-btn layui-btn-small layui-btn-normal" @click="powerAll('reboot')">批量重启</button>-->
-        <!--<button class="layui-btn layui-btn-small layui-btn-warm" @click="powerAll('status')">批量获取状态</button>-->
+        <!--<button class="layui-btn layui-btn-small layui-btn-primary" @click="powerAll('on')">启动所选</button>-->
+        <!--<button class="layui-btn layui-btn-small layui-btn-primary" @click="powerAll('off')">批量关机</button>-->
+        <!--<button class="layui-btn layui-btn-small layui-btn-primary" @click="powerAll('reboot')">批量重启</button>-->
+        <!--<button class="layui-btn layui-btn-small layui-btn-primary" @click="powerAll('status')">批量获取状态</button>-->
       </div>
     </div>
 
@@ -133,20 +152,21 @@
     name: "vidrac",
     data: () => {
       return {
-        searchinfo:null,
-        bakhostsid:{},
-        selecteds:[],
+        searchinfo: null,
+        bakhostsid: {},
+        selecteds: [],
         hostsid: {},
         selectall: false,
         tasks: [],
         showLoad: false,
         statusInter: null,
-        usedTime:0,
-        usedTimeInter:null,
-        total:{
-            on:0,
-            off:0,
-            unknown:0,
+        usedTime: 0,
+        usedTimeInter: null,
+        searchInter: null,
+        total: {
+          on: 0,
+          off: 0,
+          unknown: 0,
         }
 
       }
@@ -168,31 +188,31 @@
       },
     },
     methods: {
-      getAllInfo: function (msg,ip,d) {
+      getAllInfo: function (msg, ip, d) {
         this.unselectAll()
         var ip = ip || 'all'
         this.hosts = []
         let hid = Object.keys(this.hostsid)
 
-        if (msg){
+        if (msg) {
           layui.layer.msg('正在刷新 请稍后...', {time: 500});
         }
-        axios.get(GET_ALL_INFO+ip).then(
+        axios.get(GET_ALL_INFO + ip).then(
           (data) => {
-            if (Object.keys(data.data).length===0){
-              if (!d){
-                  layui.layer.msg('没有查询到任何数据', {time: 1000});
+            if (Object.keys(data.data).length === 0) {
+              if (!d) {
+                layui.layer.msg('没有查询到任何数据', {time: 1000});
               }
               return
             }
-            if (ip!=='all'){
-                hid = Object.keys(data.data)
+            if (ip !== 'all') {
+              hid = Object.keys(data.data)
             }
-            if (hid.length===0){
+            if (hid.length === 0) {
               this.hostsid = data.data
-            }else{
+            } else {
               let _tmp = {}
-              for (let i of hid){
+              for (let i of hid) {
                 _tmp[i] = data.data[i]
               }
               this.hostsid = _tmp
@@ -203,13 +223,13 @@
         )
       },
 
-      getTotal:function () {
-        this.total = {on:0,off:0,unknown:0}
+      getTotal: function () {
+        this.total = {on: 0, off: 0, unknown: 0}
         let keys = Object.keys(this.hostsid)
         for (let i of keys) {
-          if (this.hostsid[i]['status']==='on'){
-              this.total['on']++
-          } else if (this.hostsid[i]['status']==='off'){
+          if (this.hostsid[i]['status'] === 'on') {
+            this.total['on']++
+          } else if (this.hostsid[i]['status'] === 'off') {
             this.total['off']++
           } else {
             this.total['unknown']++
@@ -217,15 +237,15 @@
         }
       },
       selectAll: function () {
-        if (!layui.jquery("input[name='selall']").prop("checked")){
-            return
+        if (!layui.jquery("input[name='selall']").prop("checked")) {
+          return
         }
         layui.jquery("input[name='checkname']").prop("checked", true)
         this.selectall = true
         this.addselecteds()
       },
       unselectAll: function () {
-        if (layui.jquery("input[name='selall']").prop("checked")){
+        if (layui.jquery("input[name='selall']").prop("checked")) {
           return
         }
         layui.jquery("input[name='checkname']").prop("checked", false)
@@ -245,7 +265,7 @@
         return selecteds
       },
 
-      addselecteds:function () {
+      addselecteds: function () {
         this.selecteds = this.getSelected()
       },
 
@@ -295,47 +315,47 @@
 
 
       },
-      filterStatus:function () {
+      filterStatus: function () {
 //        layui.jquery('#filter').click(()=>{
-        layui.jquery('#filter').change(()=>{
+        layui.jquery('#filter').change(() => {
           let val = layui.jquery('#filter').val()
-          if (val === '全部状态'){
-              this.hostsid = this.bakhostsid
-          } else if (val === '已开机'){
+          if (val === '全部状态') {
+            this.hostsid = this.bakhostsid
+          } else if (val === '已开机') {
             this.hostsid = this.bakhostsid
             let keys = Object.keys(this.hostsid)
             let _tmp = {}
             for (let i of keys) {
-                if (this.hostsid[i]['status'] === 'on'){
-                    _tmp[i] = this.hostsid[i]
-                }
-            }
-            this.hostsid = _tmp
-          } else if (val === '已关机'){
-            this.hostsid = this.bakhostsid
-            let keys = Object.keys(this.hostsid)
-            let _tmp = {}
-            for (let i of keys) {
-              if (this.hostsid[i]['status'] === 'off'){
+              if (this.hostsid[i]['status'] === 'on') {
                 _tmp[i] = this.hostsid[i]
               }
             }
             this.hostsid = _tmp
-          } else if (val === '未知'){
+          } else if (val === '已关机') {
             this.hostsid = this.bakhostsid
             let keys = Object.keys(this.hostsid)
             let _tmp = {}
             for (let i of keys) {
-              if (this.hostsid[i]['status'] !== 'on' && this.hostsid[i]['status'] !== 'off' ){
+              if (this.hostsid[i]['status'] === 'off') {
                 _tmp[i] = this.hostsid[i]
               }
             }
             this.hostsid = _tmp
-          } else if (val === '已选择'){
+          } else if (val === '未知') {
+            this.hostsid = this.bakhostsid
+            let keys = Object.keys(this.hostsid)
+            let _tmp = {}
+            for (let i of keys) {
+              if (this.hostsid[i]['status'] !== 'on' && this.hostsid[i]['status'] !== 'off') {
+                _tmp[i] = this.hostsid[i]
+              }
+            }
+            this.hostsid = _tmp
+          } else if (val === '已选择') {
             this.hostsid = this.bakhostsid
             let _tmp = {}
             for (let i of this.getSelected()) {
-                _tmp[i] = this.hostsid[i]
+              _tmp[i] = this.hostsid[i]
             }
             this.hostsid = _tmp
           }
@@ -345,25 +365,25 @@
 
       },
       getStatus: function () {
-          axios.get(GET_STATUS).then(
-            (data)=>{
-                if (data.data['status'] === 'running'){
-                  this.getAllInfo()
-                  this.showLoad = true
-                } else {
-                  clearInterval(this.statusInter)
-                  this.showLoad = false
-                  this.getAllInfo()
-                  clearInterval(this.usedTimeInter)
-                  layui.layer.msg('任务全部完成<br>耗时: '+this.usedTime+' 秒', {time: 3000});
-                  this.usedTime = 0
-                }
+        axios.get(GET_STATUS).then(
+          (data) => {
+            if (data.data['status'] === 'running') {
+              this.getAllInfo()
+              this.showLoad = true
+            } else {
+              clearInterval(this.statusInter)
+              this.showLoad = false
+              this.getAllInfo()
+              clearInterval(this.usedTimeInter)
+              layui.layer.msg('任务全部完成<br>耗时: ' + this.usedTime + ' 秒', {time: 3000});
+              this.usedTime = 0
             }
-          )
+          }
+        )
       },
 
       powerAll: function (action) {
-        if (this.showLoad){
+        if (this.showLoad) {
           layui.layer.msg('您还有任务没结束哦', {time: 2000});
           return
         }
@@ -373,11 +393,11 @@
           if (action !== 'status') {
             let act = ''
             if (action === 'on') {
-              act = '您已选中 '+ids.length+' 台主机<br>是否执行开机操作？'
+              act = '您已选中 ' + ids.length + ' 台主机<br>是否执行开机操作？'
             } else if (action === 'off') {
-              act = '您已选中 '+ids.length+' 台主机<br>是否执行关机操作？'
+              act = '您已选中 ' + ids.length + ' 台主机<br>是否执行关机操作？'
             } else if (action === 'reboot') {
-              act = '您已选中 '+ids.length+' 台主机<br>是否执行重启操作？'
+              act = '您已选中 ' + ids.length + ' 台主机<br>是否执行重启操作？'
             }
             layui.layer.open(
               {
@@ -385,7 +405,9 @@
                 btn: ['是的', '取消'],
                 yes: () => {
                   this.showLoad = true;
-                  this.usedTimeInter = setInterval(()=>{this.usedTime++},1000)
+                  this.usedTimeInter = setInterval(() => {
+                    this.usedTime++
+                  }, 1000)
                   axios.post(CONTROL_ASYNC, JSON.stringify({id: ids, action: action}),
                     {headers: {"content-type": "application/json"}}).then(
                     (data) => {
@@ -405,7 +427,9 @@
             )
           } else {
             this.showLoad = true;
-            this.usedTimeInter = setInterval(()=>{this.usedTime++},1000)
+            this.usedTimeInter = setInterval(() => {
+              this.usedTime++
+            }, 1000)
             axios.post(CONTROL_ASYNC, JSON.stringify({id: ids, action: action}),
               {headers: {"content-type": "application/json"}}).then(
               (data) => {
@@ -427,8 +451,13 @@
     mounted: function () {
       this.getAllInfo(true)
       this.filterStatus()
-      layui.jquery('#search').on('input',()=>{
-        this.getAllInfo(false,this.searchinfo,true)
+      layui.jquery('#search').on('input', () => {
+        clearTimeout(this.searchInter)
+        this.searchInter = setTimeout(() => {
+          this.hostsid = {}
+          this.getAllInfo(false, this.searchinfo, true)
+        }, 500)
+
       })
 //      setInterval(this.getAllInfo, 10000)
     }
@@ -460,7 +489,7 @@
     /*font-size: 18px;*/
   }
 
-  .parent{
+  .parent {
     width: 90px;
     height: 25px;
     /*overflow: auto;*/
@@ -468,17 +497,16 @@
     border: solid 1px #ccc;
   }
 
-  .parent select{
+  .parent select {
     /*-webkit-appearance:none;*/
     /*-moz-appearance:none;*/
-    background:transparent;
-    border:none;
-    padding-left:9px;
+    background: transparent;
+    border: none;
+    padding-left: 9px;
     width: 90px;
-    height:100%;
+    height: 100%;
     /*margin:3px;*/
   }
-
 
   .tabtitle {
     overflow-y: scroll;
@@ -510,10 +538,9 @@
   }
 
   .layui-btn-group button {
-    margin-left: 5px !important;
-    border: 1px solid rgba(0,0,0,.1) !important;
+    margin-left: 3px !important;
+    border: 1px solid rgba(0, 0, 0, .1) !important;
   }
-
 
 
 </style>
